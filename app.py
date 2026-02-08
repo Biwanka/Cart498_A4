@@ -54,6 +54,7 @@ Dream:
                 prompt=image_prompt,
                 size="1024x1024"
             )
+        
 
             b64 = image.data[0].b64_json
             img_bytes = base64.b64decode(b64)
