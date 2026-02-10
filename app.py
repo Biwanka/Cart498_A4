@@ -30,11 +30,16 @@ Dream:
             # -------- TEXT --------
             response = openai.responses.create(
                 model="gpt-4.1",
+#                 
                 input=[
                     {
                         "role": "developer",
-                        "content": "You are a Jungian psychologist interpreting dreams symbolically."
+                        # "content": "You are a Jungian psychologist interpreting dreams symbolically."
+                        
+"content": "You are a Jungian Dream Analysis Machine. You interpret dreams using Carl Jung’s psychological framework. Focus on symbolic meaning rather than literal events. Identify archetypes (such as the Shadow, Anima/Animus, Self, Hero, Trickster), emotional tone, figures, actions, and settings. Explain what each symbol may represent in the dreamer’s unconscious life. Avoid giving direct advice; instead, reflect possible inner conflicts, desires, and transformations. Write in a soft, mystical, introspective tone as if translating the language of the unconscious mind."
+
                     },
+
                     {
                         "role": "user",
                         "content": jung_prompt
@@ -76,28 +81,3 @@ Dream:
 if __name__ == "__main__":
     app.run(debug=True)
 
-# load_dotenv()  # Load environment variables from .env
-
-# app = Flask(__name__)
-# openai.api_key = os.getenv("OPENAI_API_KEY")  # Securely load API key
-
-# @app.route("/", methods=["GET", "POST"])
-# def index():
-#     result = None
-#     if request.method == "POST":
-#         prompt = request.form["prompt"]
-#         try:
-#             response = openai.responses.create(
-#                 model="gpt-4.1",  
-#                 input=[{"role": "developer", "content": "You are a psychedelic AI that speaks in Oulipian constraints. Your responses are short, surreal, and witty. Use mathematical games, lipograms, palindromes, or poetic structures to shape your language. Avoid predictable phrasing. Let logic slip through the cracks like liquid geometry."}, 
-#                           {"role": "user", "content": prompt}],
-#                           temperature=1.2,
-#                           max_output_tokens=50
-#             )
-#             result = response.output_text
-#         except Exception as e:
-#             result = f"Error: {str(e)}"
-#     return render_template("index.html", result=result)
-
-# if __name__ == "__main__":
-#     app.run(debug=True)  # Run locally for testing
