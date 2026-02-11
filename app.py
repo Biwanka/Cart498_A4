@@ -61,7 +61,7 @@ Symbolic archetypes, subconscious atmosphere, cinematic lighting. Dream content:
             image = openai.images.generate(
                 model="gpt-image-1",
                 prompt=image_prompt,
-                size="512x512",
+                size="auto",
                 quality="low"
             )
 
@@ -76,6 +76,8 @@ Symbolic archetypes, subconscious atmosphere, cinematic lighting. Dream content:
 
     return render_template("index.html", result=result, image_url=image_url)
 
+if __name__ == "__main__":
+    app.run(host="127.0.0.1", port=5000, debug=True)
 
 
 
