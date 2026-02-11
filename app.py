@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request
 import openai
-import os, base64, uuid
+import os
+import base64
+import uuid
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -51,30 +53,44 @@ Dream:
 
             result = response.output_text
 
-            # -------- IMAGE --------
-            image_prompt = f"Surreal, symbolic, dreamlike illustration based on this dream: {prompt}"
-
-            image = openai.images.generate(
-                model="gpt-image-1",
-                prompt=image_prompt,
-                size="512x512"
-
-            )
-        
-
-            b64 = image.data[0].b64_json
-            img_bytes = base64.b64decode(b64)
-
-            filename = f"{uuid.uuid4()}.png"
-            path = os.path.join("static", filename)
-
-            with open(path, "wb") as f:
-                f.write(img_bytes)
-
-            image_url = path
 
         except Exception as e:
-            result = f"Error: {str(e)}"
+            result = f"Text Error: {str(e)}"
+
+
+
+    
+   # -------- IMAGE --------
+        image_url = None
+        try:
+          image_prompt = f""" Surreal, symbolic, dreamlike illustration based on this dream: {prompt}
+"""
+
+         
+          image = openai.images.generate(
+                model="gpt-image-1",
+                prompt=image_prompt,
+                size="auto"
+            )
+          
+
+          b64 = image.data[0].b64_json
+          img_bytes = base64.b64decode(b64)
+
+
+          os.makedirs("static", exist_ok=True)
+
+          filename = f"{uuid.uuid4()}.png"
+          path = os.path.join("static", filename)
+
+          with open(path, "wb") as f:
+                f.write(img_bytes)
+
+          image_url = "/" + path.replace("\\", "/")
+
+        except Exception as e:
+            print("IMAGE ERROR:", e)
+            image_url = None
 
     return render_template("index.html", result=result, image_url=image_url)
 
