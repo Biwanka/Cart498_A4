@@ -37,8 +37,7 @@ Dream:
                     {
                         "role": "developer",
                         # "content": "You are a Jungian psychologist interpreting dreams symbolically."
-                        
-"content": "You are a Jungian Dream Analysis Machine. You interpret dreams using Carl Jung’s psychological framework. Focus on symbolic meaning rather than literal events. Identify archetypes (such as the Shadow, Anima/Animus, Self, Hero, Trickster), emotional tone, figures, actions, and settings. Explain what each symbol may represent in the dreamer’s unconscious life. Avoid giving direct advice; instead, reflect possible inner conflicts, desires, and transformations. Write in a soft, mystical, introspective tone as if translating the language of the unconscious mind."
+                        "content": "You are a Jungian Dream Analysis Machine. You interpret dreams using Carl Jung’s psychological framework. Focus on symbolic meaning rather than literal events. Identify archetypes (such as the Shadow, Anima/Animus, Self, Hero, Trickster), emotional tone, figures, actions, and settings. Explain what each symbol may represent in the dreamer’s unconscious life. Avoid giving direct advice; instead, reflect possible inner conflicts, desires, and transformations. Write in a soft, mystical, introspective tone as if translating the language of the unconscious mind."
 
                     },
 
@@ -53,30 +52,45 @@ Dream:
 
             result = response.output_text
 
-            # -------- IMAGE --------
-            image_prompt = f"Surreal, symbolic, dreamlike illustration based on this dream: {prompt}"
-
-            image = openai.images.generate(
-                model="gpt-image-1",
-                prompt=image_prompt,
-                size="auto"
-
-            )
-        
-
-            b64 = image.data[0].b64_json
-            img_bytes = base64.b64decode(b64)
-
-            filename = f"{uuid.uuid4()}.png"
-            path = os.path.join("static", filename)
-
-            with open(path, "wb") as f:
-                f.write(img_bytes)
-
-            image_url = path
 
         except Exception as e:
-            result = f"Error: {str(e)}"
+            result = f"Text Error: {str(e)}"
+
+
+
+    
+   # -------- IMAGE --------
+        image_url = None
+        try:
+          image_prompt = f""" Surreal, symbolic, dreamlike illustration based on this dream: 
+{prompt}
+"""
+
+         
+          image = openai.images.generate(
+                model="gpt-image-1-mini",
+                prompt=image_prompt,
+                size="auto"
+            )
+          
+
+          b64 = image.data[0].b64_json
+          img_bytes = base64.b64decode(b64)
+
+
+          os.makedirs("static", exist_ok=True)
+
+          filename = f"{uuid.uuid4()}.png"
+          path = os.path.join("static", filename)
+
+          with open(path, "wb") as f:
+                f.write(img_bytes)
+
+          image_url = "/" + path.replace("\\", "/")
+
+        except Exception as e:
+            print("IMAGE ERROR:", e)
+            image_url = None
 
     return render_template("index.html", result=result, image_url=image_url)
 
