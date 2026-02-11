@@ -57,7 +57,8 @@ Dream:
             image = openai.images.generate(
                 model="gpt-image-1",
                 prompt=image_prompt,
-                size="1024x1024"
+                size="512x512"
+
             )
         
 
