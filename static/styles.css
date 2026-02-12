@@ -1,0 +1,261 @@
+/* Base layout */
+:root {
+    --bg-1: #05010a;
+    --bg-2: #1a1028;
+    --glow-1: rgba(180, 140, 255, 0.15);
+    --glow-2: rgba(120, 80, 200, 0.12);
+    --text: #e8e6f3;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background:
+        radial-gradient(circle at 20% 20%, var(--glow-1), transparent 40%),
+        radial-gradient(circle at 80% 30%, var(--glow-2), transparent 45%),
+        linear-gradient(180deg, var(--bg-1), var(--bg-2), var(--bg-1));
+    font-family: "Georgia", serif;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Floating card */
+.dream-container {
+    background: rgba(20, 12, 40, 0.75);
+    backdrop-filter: blur(14px);
+    padding: 34px;
+    border-radius: 22px;
+    max-width: 680px;
+    width: 92%;
+    box-shadow:
+        0 0 60px rgba(120, 90, 200, 0.25),
+        inset 0 0 30px rgba(255, 255, 255, 0.03);
+    animation: float 6s ease-in-out infinite;
+    position: relative;
+    z-index: 3;
+}
+
+@keyframes float {
+    0%,
+    100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-6px);
+    }
+}
+
+h1 {
+    text-align: center;
+    letter-spacing: 3px;
+    font-weight: normal;
+    margin-bottom: 22px;
+}
+
+textarea {
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    color: #f1effa;
+    border-radius: 12px;
+}
+
+textarea::placeholder {
+    color: rgba(230, 220, 255, 0.45);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #6f5cff, #b47dff);
+    border: none;
+    border-radius: 20px;
+    letter-spacing: 1px;
+}
+
+.btn-primary:hover {
+    transform: scale(1.04);
+}
+
+.result-box {
+    margin-top: 24px;
+    background: rgba(255, 255, 255, 0.06);
+    padding: 20px;
+    border-radius: 16px;
+}
+
+.result-box h4 {
+    letter-spacing: 2px;
+}
+
+img {
+    margin-top: 20px;
+    border-radius: 18px;
+    width: 100%;
+    box-shadow: 0 0 40px rgba(150, 120, 255, 0.35);
+}
+
+/* Sky layers */
+.sky,
+.stars {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+}
+
+.sky {
+    overflow: hidden;
+    z-index: 1;
+}
+
+.cloud {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.35);
+    border-radius: 999px;
+    filter: blur(0.6px);
+    animation: drift linear infinite;
+}
+
+.cloud::before,
+.cloud::after {
+    content: "";
+    position: absolute;
+    background: rgba(255, 255, 255, 0.38);
+    border-radius: 999px;
+}
+
+.cloud::before {
+    width: 60%;
+    height: 70%;
+    top: -35%;
+    left: 10%;
+}
+
+.cloud::after {
+    width: 55%;
+    height: 65%;
+    top: -25%;
+    right: 12%;
+}
+
+@keyframes drift {
+    0% {
+        transform: translateX(-30vw);
+    }
+    100% {
+        transform: translateX(160vw);
+    }
+}
+
+.cloud.c1 {
+    width: 220px;
+    height: 70px;
+    top: 12vh;
+    left: -30vw;
+    opacity: 0.65;
+    animation-duration: 120s;
+}
+
+.cloud.c2 {
+    width: 180px;
+    height: 60px;
+    top: 26vh;
+    left: -35vw;
+    opacity: 0.6;
+    animation-duration: 140s;
+    animation-delay: -20s;
+}
+
+.cloud.c3 {
+    width: 260px;
+    height: 80px;
+    top: 40vh;
+    left: -32vw;
+    opacity: 0.6;
+    animation-duration: 160s;
+    animation-delay: -60s;
+}
+
+.cloud.c4 {
+    width: 200px;
+    height: 65px;
+    top: 60vh;
+    left: -38vw;
+    opacity: 0.55;
+    animation-duration: 150s;
+    animation-delay: -90s;
+}
+
+.cloud.c5 {
+    width: 240px;
+    height: 75px;
+    top: 75vh;
+    left: -34vw;
+    opacity: 0.58;
+    animation-duration: 170s;
+    animation-delay: -120s;
+}
+
+.cloud.c6 {
+    width: 300px;
+    height: 90px;
+    top: 18vh;
+    left: -45vw;
+    opacity: 0.5;
+    animation-duration: 190s;
+    animation-delay: -150s;
+}
+
+.cloud.c7 {
+    width: 210px;
+    height: 70px;
+    top: 52vh;
+    left: -50vw;
+    opacity: 0.55;
+    animation-duration: 175s;
+    animation-delay: -80s;
+}
+
+/* Twinkling stars */
+.stars {
+    z-index: 2;
+}
+
+.star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    box-shadow: 0 0 6px rgba(200, 180, 255, 0.9);
+    animation: twinkle ease-in-out infinite;
+}
+
+@keyframes twinkle {
+    0%,
+    100% {
+        opacity: 0.2;
+        transform: scale(0.8);
+    }
+    50% {
+        opacity: 0.95;
+        transform: scale(1.2);
+    }
+}
+
+.star.s1 { top: 10%; left: 20%; animation-duration: 3.8s; animation-delay: 0s; }
+.star.s2 { top: 14%; left: 65%; animation-duration: 4.6s; animation-delay: -1s; }
+.star.s3 { top: 22%; left: 35%; animation-duration: 3.2s; animation-delay: -2s; }
+.star.s4 { top: 28%; left: 80%; animation-duration: 4.1s; animation-delay: -0.5s; }
+.star.s5 { top: 32%; left: 12%; animation-duration: 5s; animation-delay: -1.5s; }
+.star.s6 { top: 38%; left: 55%; animation-duration: 3.6s; animation-delay: -2.8s; }
+.star.s7 { top: 44%; left: 75%; animation-duration: 4.9s; animation-delay: -3.1s; }
+.star.s8 { top: 50%; left: 30%; animation-duration: 3.4s; animation-delay: -1.2s; }
+.star.s9 { top: 56%; left: 18%; animation-duration: 4.7s; animation-delay: -2.2s; }
+.star.s10 { top: 62%; left: 88%; animation-duration: 3.9s; animation-delay: -0.8s; }
+.star.s11 { top: 68%; left: 42%; animation-duration: 4.3s; animation-delay: -2.6s; }
+.star.s12 { top: 72%; left: 60%; animation-duration: 3.5s; animation-delay: -1.7s; }
+.star.s13 { top: 78%; left: 25%; animation-duration: 5.2s; animation-delay: -3.3s; }
+.star.s14 { top: 82%; left: 72%; animation-duration: 4s; animation-delay: -2.9s; }
+.star.s15 { top: 88%; left: 10%; animation-duration: 3.7s; animation-delay: -1.4s; }

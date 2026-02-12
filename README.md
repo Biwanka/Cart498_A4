@@ -12,6 +12,9 @@ In addition, the language style is shaped to be mystical, soft, and surreal. Thi
 
 
 ## Web App User Guide
+
+link: https://cart498-a4-9a1j.onrender.com/ 
+
 1. Open the deployed web app in your browser.
 
 2. Enter a dream description into the text area.
